@@ -1,5 +1,6 @@
 import tokens
 import random
+import streamlit as st
 
 global TRAIL_TOKENS_BAG
 global WEAKNESS_TOKENS_BAG
