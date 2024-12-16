@@ -7,6 +7,8 @@ global WEAKNESS_TOKENS_BAG
 
 if __name__ == "__main__":
 
+    st.write("Hello world")
+    
     tokens.create_starting_bags_of_tokens() # at this moment there should be 2 lists of tokens: 18 WEAKNESS tokens in WEAKNESS_TOKENS_BAG and 18 tokens in TRAIL_TOKENS_BAG, both bags are already randomized/shuffled
 
     # print(tokens.WEAKNESS_TOKENS_BAG)
