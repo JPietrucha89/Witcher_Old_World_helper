@@ -61,6 +61,8 @@ if __name__ == "__main__":
 
 #? THIS IS INITIAL SETUP AND NEED TO BE DONE ONLY ONCE
     if 'app_state' not in session_state:
+        st.cache_data.clear()
+        st.cache_resource.clear()
         st.session_state.app_state = 'initial_setup_started'  
         st.session_state.counter = 0
 
