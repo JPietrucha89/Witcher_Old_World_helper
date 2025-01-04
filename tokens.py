@@ -95,10 +95,10 @@ def create_starting_bags_of_tokens():
 
 
 def randomly_remove_one_token_from_bag(type, territory_type):
-    if type == 'WEAKNESS':
+    if 'WEAKNESS' in type:
         list_to_remove_from = WEAKNESS_TOKENS_BAG
         list_to_add_to = REMOVED_WEAKNESS_TOKENS_BAG
-    elif type == 'TRAIL':
+    elif 'TRAIL' in type:
         list_to_remove_from = TRAIL_TOKENS_BAG
         list_to_add_to = REMOVED_TRAIL_TOKENS_BAG
 
@@ -114,8 +114,6 @@ def randomly_remove_one_token_from_bag(type, territory_type):
             most_recently_chosen_token = token.token_fullname
             return most_recently_chosen_token
 
-    pass
-
 def intentionally_remove_one_token_from_bag(type, token_fullname):
 
     if isinstance(token_fullname, str) and '_' in token_fullname:
@@ -124,10 +122,10 @@ def intentionally_remove_one_token_from_bag(type, token_fullname):
         token_type = token_fullname.type
         token_fullname = token_fullname.token_fullname
 
-    if type == 'WEAKNESS':
+    if 'WEAKNESS' in type:
         list_to_remove_from = WEAKNESS_TOKENS_BAG
         list_to_add_to = REMOVED_WEAKNESS_TOKENS_BAG
-    elif type == 'TRAIL':
+    elif 'TRAIL' in type:
         list_to_remove_from = TRAIL_TOKENS_BAG
         list_to_add_to = REMOVED_TRAIL_TOKENS_BAG
 
