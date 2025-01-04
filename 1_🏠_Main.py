@@ -46,7 +46,7 @@ def get_color_for_token(token_name):
         return 'grey'
 
 if __name__ == "__main__":
-
+    print("*** ENTIRELY NEW RUN ***")
     session_state = st.session_state
 
 # THIS IS INITIAL SETUP AND NEED TO BE DONE ONLY ONCE
@@ -165,10 +165,10 @@ if __name__ == "__main__":
         
         a, b = st.columns(2)
         c, d = st.columns(2)
-        a.metric(label = "\# of tokens left in WEAKNESS_TOKENS_BAG", value = len(st.session_state['WEAKNESS_TOKENS_BAG']))
-        b.metric(label = "\# of tokens removed from WEAKNESS_TOKENS_BAG", value = len(st.session_state['REMOVED_WEAKNESS_TOKENS_BAG']))
-        c.metric(label = "\# of tokens left in TRAIL_TOKENS_BAG", value = len(st.session_state['TRAIL_TOKENS_BAG']))
-        d.metric(label = "\# of tokens removed from TRAIL_TOKENS_BAG", value = len(st.session_state['REMOVED_TRAIL_TOKENS_BAG']))
+        a.metric(label = "\\# of tokens left in WEAKNESS_TOKENS_BAG", value = len(st.session_state['WEAKNESS_TOKENS_BAG']))
+        b.metric(label = "\\# of tokens removed from WEAKNESS_TOKENS_BAG", value = len(st.session_state['REMOVED_WEAKNESS_TOKENS_BAG']))
+        c.metric(label = "\\# of tokens left in TRAIL_TOKENS_BAG", value = len(st.session_state['TRAIL_TOKENS_BAG']))
+        d.metric(label = "\\# of tokens removed from TRAIL_TOKENS_BAG", value = len(st.session_state['REMOVED_TRAIL_TOKENS_BAG']))
         
         #After initial setup it is time to allow users to click buttons
         #TODO: randomly_remove_one_token_from_bag in case of quests, new monsters ETC
@@ -185,6 +185,7 @@ if __name__ == "__main__":
         if randomly_remove_one_token_from_bag:
             most_recently_chosen_token = tokens.randomly_remove_one_token_from_bag(remove_type, remove_territory_type)
             st.session_state['most_recently_chosen_token'] = most_recently_chosen_token
+            st.rerun()
         with col4:
             try:
                 st.write(f"Most recently chosen token: {st.session_state.most_recently_chosen_token}")
@@ -218,7 +219,7 @@ if __name__ == "__main__":
             st.rerun()
 
         st.button("Run it again")
-
+        print("*** END OF RUN ***")
         quit()
 
     # debug
