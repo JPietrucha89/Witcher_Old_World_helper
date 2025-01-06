@@ -1,29 +1,13 @@
 import random
 import streamlit as st
 
-'''
-Create class for tokens
-2 types of tokens : WEAKNESS and TRAIL
-Within each type 3 territory types: FOREST, WATER, MOUNTAIN
-
-TRAIL
-    FOREST 1 2 3 4 5 6
-    WATER 1 2 3 4 5 6
-    MOUNTAIN 1 2 3 4 5 6
-
-WEAKNESS
-    FOREST I II III IV V VI
-    WATER I II III IV V VI
-    MOUNTAIN I II III IV V VI
-
-'''
-
 # global TRAIL_TOKENS_BAG
 # global WEAKNESS_TOKENS_BAG
 # global REMOVED_TRAIL_TOKENS_BAG
 # global REMOVED_WEAKNESS_TOKENS_BAG
 # global most_recently_chosen_token
 
+'''Create all global lists and variales'''
 TRAIL_TOKENS_BAG = []
 WEAKNESS_TOKENS_BAG = []
 REMOVED_TRAIL_TOKENS_BAG = []
@@ -31,6 +15,21 @@ REMOVED_WEAKNESS_TOKENS_BAG = []
 most_recently_chosen_token = ''
 
 class Token:
+    '''
+    Create class for tokens
+    2 types of tokens : WEAKNESS and TRAIL
+    Within each type there are 3 territory types: FOREST, WATER, MOUNTAIN
+
+    TRAIL
+        FOREST 1 2 3 4 5 6
+        WATER 1 2 3 4 5 6
+        MOUNTAIN 1 2 3 4 5 6
+
+    WEAKNESS
+        FOREST I II III IV V VI
+        WATER I II III IV V VI
+        MOUNTAIN I II III IV V VI
+    '''
     def __init__(self, type, territory_type, token_id, is_being_used = False, token_fullname = '' ):
             self.type = type
             self.territory_type = territory_type
@@ -53,6 +52,11 @@ class Token:
         return f"{self.token_fullname}"
 
 def create_starting_bags_of_tokens():
+    '''
+    Fill 4 starting lists/bags of tokens
+    2 types of tokens : WEAKNESS and TRAIL
+    Within each type there are 3 territory types: FOREST, WATER, MOUNTAIN
+    '''
     types = ['TRAIL', 'WEAKNESS']
     territory_types = ['FOREST', 'WATER', 'MOUNTAIN']
     tokens_numbers_dict = {
@@ -84,7 +88,6 @@ def create_starting_bags_of_tokens():
 
     st.toast(":material/token: TOKENS BAGS CREATED :material/token:")
     print("*** TOKENS BAGS CREATED ***")
-
 
 def randomly_remove_one_token_from_bag(type, territory_type):
     if 'WEAKNESS' in type:
