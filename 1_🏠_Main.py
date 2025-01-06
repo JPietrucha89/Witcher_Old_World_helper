@@ -66,9 +66,15 @@ def show_modal_with_info():
         '''
         * 1. INITIAL SETUP FOR MONSTERS (:material/travel_explore: TRAIL AND :material/wounds_injuries: WEAKNESS TOKENS)
             * 1a. :material/travel_explore: TRAIL TOKENS SETUP FOR INITIAL MONSTERS
-            - 1b. PLACING :material/wounds_injuries: WEAKNESS TOKENS FOR INITIAL MONSTERS
-        + 2. INITIAL TOKENS ARE SET, GAME READY TO PLAY
+            * 1b. PLACING :material/wounds_injuries: WEAKNESS TOKENS FOR INITIAL MONSTERS
+        * 2. INITIAL TOKENS ARE SET, GAME READY TO PLAY :material/swords:
         ''')
+
+def check_if_all_lists_are_empty():
+    if len(tokens.TRAIL_TOKENS_BAG) == 0 and len(tokens.WEAKNESS_TOKENS_BAG) == 0 and len(tokens.REMOVED_TRAIL_TOKENS_BAG) == 0 and len(tokens.REMOVED_WEAKNESS_TOKENS_BAG) == 0:
+        return True
+    else:
+        return False
     
 #? DONE add button/modal form with Info about the APP
 #!FIXME:somehow working but it breaks between steps 1a and 1b XD
@@ -99,8 +105,10 @@ if __name__ == "__main__":
         if "starting_bags_created" not in st.session_state:
             show_modal_with_info()
             st.write()
-            tokens.create_starting_bags_of_tokens() # at this moment there should be 2 lists of tokens: 18 WEAKNESS tokens in WEAKNESS_TOKENS_BAG and 18 tokens in TRAIL_TOKENS_BAG, both bags are already randomized/shuffled
-            st.session_state.starting_bags_created = True
+#to overcome selfresfreshing Streamlit web bug try to start this function only if all lists are empty
+            if check_if_all_lists_are_empty(): 
+                tokens.create_starting_bags_of_tokens() # at this moment there should be 2 lists of tokens: 18 WEAKNESS tokens in WEAKNESS_TOKENS_BAG and 18 tokens in TRAIL_TOKENS_BAG, both bags are already randomized/shuffled
+                st.session_state.starting_bags_created = True
 
         # manually get one token for FOREST, WATER, MOUNTAIN to place initial monsters
         # remove those tokens from the TRAIL_TOKENS_BAG
@@ -218,10 +226,10 @@ if __name__ == "__main__":
         
         a, b = st.columns(2)
         c, d = st.columns(2)
-        a.metric(label = "\\# of tokens left in :material/travel_explore: TRAIL_TOKENS_BAG", value = len(st.session_state['TRAIL_TOKENS_BAG']))
-        b.metric(label = "\\# of tokens removed from :material/travel_explore: TRAIL_TOKENS_BAG", value = len(st.session_state['REMOVED_TRAIL_TOKENS_BAG']))
-        c.metric(label = "\\# of tokens left in :material/wounds_injuries: WEAKNESS_TOKENS_BAG", value = len(st.session_state['WEAKNESS_TOKENS_BAG']))
-        d.metric(label = "\\# of tokens removed from :material/wounds_injuries: WEAKNESS_TOKENS_BAG", value = len(st.session_state['REMOVED_WEAKNESS_TOKENS_BAG']))
+        a.metric(label = "\\# of tokens **left in** :material/travel_explore: TRAIL_TOKENS_BAG", value = len(st.session_state['TRAIL_TOKENS_BAG']))
+        b.metric(label = "\\# of tokens **removed from** :material/travel_explore: TRAIL_TOKENS_BAG", value = len(st.session_state['REMOVED_TRAIL_TOKENS_BAG']))
+        c.metric(label = "\\# of tokens **left in** :material/wounds_injuries: WEAKNESS_TOKENS_BAG", value = len(st.session_state['WEAKNESS_TOKENS_BAG']))
+        d.metric(label = "\\# of tokens **removed from** :material/wounds_injuries: WEAKNESS_TOKENS_BAG", value = len(st.session_state['REMOVED_WEAKNESS_TOKENS_BAG']))
         
 #? After initial setup it is time to allow users to click buttons
         #? DONE: randomly_remove_one_token_from_bag in case of quests, new monsters ETC
