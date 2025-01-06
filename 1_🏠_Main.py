@@ -10,6 +10,8 @@ global most_recently_chosen_token
 global session_state
 
 def page_config():
+    # st.set_option("theme.base", 'dark')
+
     st.set_page_config(
         page_title="Witcher 3: Wild Hunt - Board Game", 
         layout="wide", 
@@ -54,6 +56,8 @@ def check_number_of_tokens_left_in_bag(remove_type, remove_territory_type):
     else:
         return sum(1 for i in tokens.TRAIL_TOKENS_BAG if i.territory_type == remove_territory_type)
 
+#TODO add button/modal form with Info about the APP
+#TODO include description for all of the stages of the APP (1. 2. 3. etc)
 if __name__ == "__main__":
     page_config()
     print("*** ENTIRELY NEW RUN ***")
