@@ -11,7 +11,7 @@ sidebar_logo = "the_witcher_3__wild_hunt_logo__original_sticker__by_kejo13_d7tjk
 main_body_logo = "the_witcher_3__wild_hunt_logo__original_sticker__by_kejo13_d7tjk8e-fullview.jpg"
 st.logo(sidebar_logo, size="large", icon_image=main_body_logo)
 
-st.write(st.session_state)
+# st.write(st.session_state)
 
 st.title("DEBUG")
 st.header("This is a debug page to check :orange[session_state] contents.")
