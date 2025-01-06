@@ -82,7 +82,7 @@ def create_starting_bags_of_tokens():
     random.shuffle(WEAKNESS_TOKENS_BAG)
     random.shuffle(TRAIL_TOKENS_BAG)
 
-    st.write("*** TOKENS BAGS CREATED ***")
+    st.toast(":material/token: TOKENS BAGS CREATED :material/token:")
     print("*** TOKENS BAGS CREATED ***")
 
 
@@ -110,7 +110,7 @@ def intentionally_remove_one_token_from_bag(type, token_fullname):
 
     if isinstance(token_fullname, str) and '_' in token_fullname:
         token_type = token_fullname.split('_')[0]
-    else: # TODO: how to convert names from st.selectbox to token names
+    else:
         token_type = token_fullname.type
         token_fullname = token_fullname.token_fullname
 
@@ -135,7 +135,7 @@ def return_token_to_bag(token_name):
     
     if isinstance(token_name, str) and '_' in token_name:
         token_type = token_name.split('_')[0]
-    else: # TODO: how to convert names from st.selectbox to token names
+    else:
         token_type = token_name.type
         token_name = token_name.token_fullname
 
