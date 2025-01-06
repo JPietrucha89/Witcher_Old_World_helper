@@ -60,7 +60,14 @@ def check_number_of_tokens_left_in_bag(remove_type, remove_territory_type):
 
 @st.dialog("ℹ️ INFO", width= 'large')
 def show_modal_with_info():
-    st.info("Welcome to the Witcher Old World - Board Game helper. It should alleviate some of the pain connected to dealing with tokens by allowing you to: randomly pick tokens from bags, return tokens to corresponding bags", icon= 'ℹ️')
+    st.info("Welcome to the Witcher Old World - Board Game helper :material/waving_hand:", icon= 'ℹ️')
+    st.write("It should alleviate some of the pain connected to dealing with tokens by allowing you to")  
+    st.markdown(
+        '''
+            * ***randomly*** pick tokens from bags
+            * return ***selected*** tokens to corresponding bags
+            * draw ***selected*** tokens from bags
+        ''')
     st.write("Structure of the APP:")
     st.markdown(
         '''
