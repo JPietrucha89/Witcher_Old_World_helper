@@ -51,10 +51,6 @@ class Token:
 
     def __str__(self):  # Used in print() and str() calls
         return f"{self.token_fullname}"
-class Bag_of_tokens:
-     def __init__(self, type):
-          pass
-     
 
 def create_starting_bags_of_tokens():
     types = ['TRAIL', 'WEAKNESS']
@@ -88,10 +84,6 @@ def create_starting_bags_of_tokens():
 
     st.write("*** TOKENS BAGS CREATED ***")
     print("*** TOKENS BAGS CREATED ***")
-    # st.session_state['WEAKNESS_TOKENS_BAG'] = WEAKNESS_TOKENS_BAG
-    # st.session_state['TRAIL_TOKENS_BAG'] = TRAIL_TOKENS_BAG
-    # print(WEAKNESS_TOKENS_BAG)
-    # print(TRAIL_TOKENS_BAG)
 
 
 def randomly_remove_one_token_from_bag(type, territory_type):
