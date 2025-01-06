@@ -1,3 +1,6 @@
-*.pyc
 .streamlit/
 .vscode/
+__pycache__/
+venv/
+.venv/
+.devcontainer/
