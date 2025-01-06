@@ -61,7 +61,7 @@ def check_number_of_tokens_left_in_bag(remove_type, remove_territory_type):
 @st.dialog("ℹ️ INFO", width= 'large')
 def show_modal_with_info():
     st.info("Welcome to the Witcher Old World - Board Game helper. It should alleviate some of the pain connected to dealing with tokens by allowing you to: randomly pick tokens from bags, return tokens to corresponding bags", icon= 'ℹ️')
-    st.write("Structure of the app:") #, key = 'welcome_dialog')
+    st.write("Structure of the APP:")
     st.markdown(
         '''
         * 1. INITIAL SETUP FOR MONSTERS (:material/travel_explore: TRAIL AND :material/wounds_injuries: WEAKNESS TOKENS)
@@ -79,7 +79,7 @@ def check_if_all_lists_are_empty():
 #? DONE add button/modal form with Info about the APP
 #!FIXME:somehow working but it breaks between steps 1a and 1b XD
 
-#? DONE include description for all of the stages of the APP (1. 2. 3. etc)
+# TODO: ADD THIRD SECTION: INTENTIONALLY DRAW SELECTED TOKEN FROM BAG
 if __name__ == "__main__":
     page_config()
     print("*** ENTIRELY NEW RUN ***")
@@ -153,7 +153,7 @@ if __name__ == "__main__":
         
 
     if st.session_state.app_state == 'monster_trail_tokens_placed' and 'initial_weakness_tokens_removed' not in st.session_state:
-# now randomly choose 3 weakness tokens and randomly choose their locations by picking 3 TRAIL tokens that will be immediately returned to TRAIL bag later
+# now randomly choose 3 weakness tokens and randomly choose their locations by picking 3 TRAIL tokens that will be immediately returned to TRAIL bag
         st.subheader("1b. PLACING :material/wounds_injuries: WEAKNESS TOKENS FOR INITIAL MONSTERS")
     # FOREST MONSTER SETUP
         weakness_token = tokens.randomly_remove_one_token_from_bag('WEAKNESS', 'FOREST')
@@ -233,7 +233,7 @@ if __name__ == "__main__":
         
 #? After initial setup it is time to allow users to click buttons
         #? DONE: randomly_remove_one_token_from_bag in case of quests, new monsters ETC
-        st.subheader('DRAW RANDOM TOKEN FROM BAG', divider = "green")
+        st.subheader('DRAW :orange[RANDOM] TOKEN FROM BAG', divider = "green")
         col1, col2, col3, col4 = st.columns(4, vertical_alignment = 'center')
         with col1:
             remove_type = st.radio("Choose token type:", (':material/travel_explore: TRAIL', ':material/wounds_injuries: WEAKNESS'), key = 'remove_type_radio')
@@ -265,7 +265,7 @@ if __name__ == "__main__":
 
 
         #? DONE: return_token_to_bag in case of finished quests, defeated monsters ETC
-        st.subheader("RETURN SELECTED TOKEN TO BAG", divider = "green")
+        st.subheader("RETURN :orange[SELECTED] TOKEN TO BAG", divider = "green")
         col1, col2, col3 = st.columns(3, vertical_alignment = 'bottom')
 
         with col1:
@@ -279,15 +279,15 @@ if __name__ == "__main__":
 
         with col2:
             token_to_return = st.selectbox(
-                "Choose token to return:",
+                f"Choose {return_type} token to return:",
                 tokens_bag, #.sort(key = sort_tokens_alphabetically),
                 index=0
             )
         with col3:
             if token_to_return is None:
-                return_token_to_bag = st.button('Return token to corresponding bag', disabled = True)
+                return_token_to_bag = st.button(f'Return {return_type} token to corresponding bag', disabled = True)
             else:
-                return_token_to_bag = st.button('Return token to corresponding bag', disabled = False)
+                return_token_to_bag = st.button(f'Return {return_type} token to corresponding bag', disabled = False)
 
         if return_token_to_bag:
             tokens.return_token_to_bag(token_to_return)
