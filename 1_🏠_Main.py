@@ -13,7 +13,7 @@ def page_config():
     # st.set_option("theme.base", 'dark')
 
     st.set_page_config(
-        page_title="Witcher 3: Wild Hunt - Board Game", 
+        page_title="Witcher: Old World - Board Game", 
         layout="wide", 
         initial_sidebar_state= 'collapsed', #"expanded",
         page_icon= "the_witcher_3__wild_hunt_logo__original_sticker__by_kejo13_d7tjk8e-fullview.jpg"
@@ -60,7 +60,14 @@ def check_number_of_tokens_left_in_bag(remove_type, remove_territory_type):
 
 @st.dialog("ℹ️ INFO", width= 'large')
 def show_modal_with_info():
-    st.info("Welcome to the Witcher Old World - Board Game helper. It should alleviate some of the pain connected to dealing with tokens by allowing you to: randomly pick tokens from bags, return tokens to corresponding bags", icon= 'ℹ️')
+    st.info("Welcome to the Witcher Old World - Board Game helper :material/waving_hand:", icon= 'ℹ️')
+    st.write("It should alleviate some of the pain connected to dealing with tokens by allowing you to:")  
+    st.markdown(
+        '''
+            * ***randomly*** pick tokens from bags
+            * return ***selected*** tokens to corresponding bags
+            * draw ***selected*** tokens from bags
+        ''')
     st.write("Structure of the APP:")
     st.markdown(
         '''
@@ -95,9 +102,6 @@ if __name__ == "__main__":
     if 'most_recently_chosen_token' not in st.session_state:
         st.session_state['most_recently_chosen_token'] = 'None'
 
-    # st.write(f":orange[session_state]: {st.session_state.app_state}")
-    # st.write(f":orange[session_state]: {st.session_state.most_recently_chosen_token}")
-
     # if "counter" not in st.session_state:
     if st.session_state.app_state == 'initial_setup_started':
         st.header("1. INITIAL SETUP FOR MONSTERS (:material/travel_explore: TRAIL AND :material/wounds_injuries: WEAKNESS TOKENS)")
@@ -116,7 +120,7 @@ if __name__ == "__main__":
         with placeholder_1a.container():
             st.subheader("1a. :material/travel_explore: TRAIL TOKENS SETUP FOR INITIAL MONSTERS")
             with st.form('Inputs'):
-                st.subheader('Choose 3 :material/travel_explore: TRAIL TOKENS for initial monsters. They will be removed from corresponding bag.')
+                st.subheader(':orange[MANUALLY] choose 3 :material/travel_explore: TRAIL TOKENS from physical board game tokens and place them on 3 monsters spots on board. Chosen tokens will be removed from :material/travel_explore: TRAIL TOKENS bag for now (but will return after monster defeat).')
                 forest_trail_tokens_list = list(filter(lambda token_names: 'FOREST' in token_names.token_fullname , tokens.TRAIL_TOKENS_BAG))
                 forest_trail_tokens_list.sort(key = sort_tokens_alphabetically)
 
@@ -125,11 +129,11 @@ if __name__ == "__main__":
                 mountain_trail_tokens_list = list(filter(lambda token_names: 'MOUNTAIN' in token_names.token_fullname , tokens.TRAIL_TOKENS_BAG))
                 mountain_trail_tokens_list.sort(key = sort_tokens_alphabetically)
 
-                t1 = st.selectbox("Choose token for :green[FOREST] monster", forest_trail_tokens_list, index=0, key = 't1_selectbox')
-                t2 = st.selectbox("Choose token for :blue[WATER] monster", water_trail_tokens_list, index=0, key = 't2_selectbox')
-                t3 = st.selectbox("Choose token for :grey[MOUNTAIN] monster", mountain_trail_tokens_list, index=0, key = 't3_selectbox')
+                t1 = st.selectbox("Choose initial token for :green[FOREST] monster", forest_trail_tokens_list, index=0, key = 't1_selectbox')
+                t2 = st.selectbox("Choose initial token for :blue[WATER] monster", water_trail_tokens_list, index=0, key = 't2_selectbox')
+                t3 = st.selectbox("Choose initial token for :grey[MOUNTAIN] monster", mountain_trail_tokens_list, index=0, key = 't3_selectbox')
 
-                submitter = st.form_submit_button('Proceed to :material/wounds_injuries: WEAKNESS TOKENS setup', help = "Click to remove selected tokens from TRAIL tokens bag and place them on the board")
+                submitter = st.form_submit_button('Proceed to :material/wounds_injuries: WEAKNESS TOKENS setup', help = "Click to remove selected tokens from TRAIL tokens bag and :orange[manually] place them on the board")
 
                 if submitter: #st.form_submit_button('Submit'):
                     tokens.intentionally_remove_one_token_from_bag('TRAIL', t1)
@@ -162,8 +166,8 @@ if __name__ == "__main__":
         tokens.return_token_to_bag(trail_token)
         # TRAIL FOREST token returned to bag
         print(f"*** PLACE {weakness_token} AT SPOT {trail_token}")
-        st.write(f"*** PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
-        st.toast(f"*** PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
+        st.write(f"*** :orange[MANUALLY] PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
+        # st.toast(f"*** PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
         print('-------------------------------------------------')
 
     # WATER MONSTER SETUP
@@ -173,8 +177,8 @@ if __name__ == "__main__":
         tokens.return_token_to_bag(trail_token)
         # TRAIL WATER token returned to bag
         print(f"*** PLACE {weakness_token} AT SPOT {trail_token}")
-        st.write(f"*** PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
-        st.toast(f"*** PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
+        st.write(f"*** :orange[MANUALLY] PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
+        # st.toast(f"*** PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
         print('-------------------------------------------------')
 
     # MOUNTAIN MONSTER SETUP
@@ -184,8 +188,8 @@ if __name__ == "__main__":
         tokens.return_token_to_bag(trail_token)
         # TRAIL MOUNTAIN token returned to bag
         print(f"*** PLACE {weakness_token} AT SPOT {trail_token}")
-        st.write(f"*** PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
-        st.toast(f"*** PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
+        st.write(f"*** :orange[MANUALLY] PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
+        # st.toast(f"*** PLACE :{color}[:material/wounds_injuries: {weakness_token}] AT SPOT :{color}[:material/travel_explore: {trail_token}]")
         print('-------------------------------------------------')
 
         if 'WEAKNESS_TOKENS_BAG' not in st.session_state:
@@ -205,7 +209,7 @@ if __name__ == "__main__":
 
         
         #! WTF DOES THIS BUTTON CHANGE APP_STATE WITHOUT EVEN BEING CLICKED ON?
-        st.button(":material/wounds_injuries: Weakness tokens placed. Continue to next step", key = 'weakness_tokens_placed', on_click= set_app_state_to_monster_weakness_tokens_placed, help = "Click to continue to the next step")
+        st.button(":material/wounds_injuries: Weakness tokens placed. Continue to next step", key = 'weakness_tokens_placed', on_click= set_app_state_to_monster_weakness_tokens_placed, help = "Click to finish initial setup for monsters and continue to the next step")
 
         st.session_state.initial_weakness_tokens_removed = True
 
@@ -233,7 +237,8 @@ if __name__ == "__main__":
         
 #? After initial setup it is time to allow users to click buttons
         #? DONE: randomly_remove_one_token_from_bag in case of quests, new monsters ETC
-        st.subheader('DRAW :orange[RANDOM] TOKEN FROM BAG', divider = "green")
+        st.subheader('DRAW :orange[RANDOM] TOKEN FROM BAG - :orange[MANUALLY] PLACE THIS TOKEN ON BOARD OR USE IT FOR QUESTS ETC', divider = "green")
+
         col1, col2, col3, col4 = st.columns(4, vertical_alignment = 'center')
         with col1:
             remove_type = st.radio("Choose token type:", (':material/travel_explore: TRAIL', ':material/wounds_injuries: WEAKNESS'), key = 'remove_type_radio')
@@ -285,9 +290,9 @@ if __name__ == "__main__":
             )
         with col3:
             if token_to_return is None:
-                return_token_to_bag = st.button(f'Return {return_type} token to corresponding bag', disabled = True)
+                return_token_to_bag = st.button(f'Return selected {return_type} token to corresponding bag', disabled = True)
             else:
-                return_token_to_bag = st.button(f'Return {return_type} token to corresponding bag', disabled = False)
+                return_token_to_bag = st.button(f'Return selected {return_type} token to corresponding bag', disabled = False)
 
         if return_token_to_bag:
             tokens.return_token_to_bag(token_to_return)
@@ -295,7 +300,7 @@ if __name__ == "__main__":
             st.toast(f"Token :{color}[{icon} {token_to_return}] has been returned to corresponding bag.", icon=":material/info:")
             st.rerun()
 
-        st.button("Run it again")
+        # st.button("Run it again")
         print("*** END OF RUN ***")
         quit()
 
