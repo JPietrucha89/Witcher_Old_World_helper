@@ -13,10 +13,10 @@ def page_config():
     # st.set_option("theme.base", 'dark')
 
     st.set_page_config(
-        page_title="Witcher: Old World - Board Game", 
-        layout="wide", 
-        initial_sidebar_state= 'collapsed', #"expanded",
-        page_icon= "the_witcher_3__wild_hunt_logo__original_sticker__by_kejo13_d7tjk8e-fullview.jpg"
+        page_title = "Witcher: Old World - Board Game",
+        layout = "wide",
+        initial_sidebar_state = 'collapsed',#"expanded",
+        page_icon = "the_witcher_3__wild_hunt_logo__original_sticker__by_kejo13_d7tjk8e-fullview.jpg"
     )
 
     sidebar_logo = "the_witcher_3__wild_hunt_logo__original_sticker__by_kejo13_d7tjk8e-fullview.jpg"
