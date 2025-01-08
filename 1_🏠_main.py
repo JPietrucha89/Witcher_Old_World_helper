@@ -149,7 +149,7 @@ if __name__ == "__main__":
     # FOREST MONSTER SETUP
         weakness_token = tokens.randomly_remove_one_token_from_bag('WEAKNESS', 'FOREST')
         trail_token = tokens.randomly_remove_one_token_from_bag('TRAIL', 'FOREST')
-        color = get_color_for_token(weakness_token)
+        color = tokens.get_color_for_token(weakness_token)
         tokens.return_token_to_bag(trail_token)
         # TRAIL FOREST token returned to bag
         print(f"*** PLACE {weakness_token} AT SPOT {trail_token}")
@@ -160,7 +160,7 @@ if __name__ == "__main__":
     # WATER MONSTER SETUP
         weakness_token = tokens.randomly_remove_one_token_from_bag('WEAKNESS', 'WATER')
         trail_token = tokens.randomly_remove_one_token_from_bag('TRAIL', 'WATER')
-        color = get_color_for_token(weakness_token)
+        color = tokens.get_color_for_token(weakness_token)
         tokens.return_token_to_bag(trail_token)
         # TRAIL WATER token returned to bag
         print(f"*** PLACE {weakness_token} AT SPOT {trail_token}")
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     # MOUNTAIN MONSTER SETUP
         weakness_token = tokens.randomly_remove_one_token_from_bag('WEAKNESS', 'MOUNTAIN')
         trail_token = tokens.randomly_remove_one_token_from_bag('TRAIL', 'MOUNTAIN')
-        color = get_color_for_token(weakness_token)
+        color = tokens.get_color_for_token(weakness_token)
         tokens.return_token_to_bag(trail_token)
         # TRAIL MOUNTAIN token returned to bag
         print(f"*** PLACE {weakness_token} AT SPOT {trail_token}")
@@ -237,7 +237,7 @@ if __name__ == "__main__":
             #?DONE: disable this button if number of remove_type x remove_territory_type tokens in bag is 0
             # st.write(check_number_of_tokens_left_in_bag(remove_type, remove_territory_type))
             disabled = check_number_of_tokens_left_in_bag(remove_type, remove_territory_type) <= 0
-            color = get_color_for_token(remove_territory_type)
+            color = tokens.get_color_for_token(remove_territory_type)
             randomly_remove_one_token_from_bag = st.button(f'Randomly draw :{color}[{remove_type} {remove_territory_type}] token from corresponding bag', disabled = disabled)
         if randomly_remove_one_token_from_bag:
             most_recently_chosen_token = tokens.randomly_remove_one_token_from_bag(remove_type, remove_territory_type)
@@ -248,7 +248,7 @@ if __name__ == "__main__":
             if st.session_state.most_recently_chosen_token == 'None':
                 st.write("No token was removed yet")
             else:
-                color = get_color_for_token(st.session_state.most_recently_chosen_token)
+                color = tokens.get_color_for_token(st.session_state.most_recently_chosen_token)
                 if 'WEAKNESS' in st.session_state.most_recently_chosen_token:
                     icon = ':material/wounds_injuries:'
                 else:
@@ -283,7 +283,7 @@ if __name__ == "__main__":
 
         if return_token_to_bag:
             tokens.return_token_to_bag(token_to_return)
-            color = get_color_for_token(token_to_return)
+            color = tokens.get_color_for_token(token_to_return)
             st.toast(f"Token :{color}[{icon} {token_to_return}] has been returned to corresponding bag.", icon=":material/info:")
             st.rerun()
 
