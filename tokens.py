@@ -7,7 +7,7 @@ import streamlit as st
 # global REMOVED_WEAKNESS_TOKENS_BAG
 # global most_recently_chosen_token
 
-'''Create all global lists and variales'''
+'''Create all global lists and variables'''
 TRAIL_TOKENS_BAG = []
 WEAKNESS_TOKENS_BAG = []
 REMOVED_TRAIL_TOKENS_BAG = []
@@ -158,6 +158,19 @@ def return_token_to_bag(token_name):
     
     print(f"Failed to return given token: {token_name}")
 
+def get_color_for_token(token_name):
+    if isinstance(token_name, str):
+        pass
+    else:
+        token_name = token_name.token_fullname
+
+    if 'FOREST' in token_name:
+        return 'green'
+    if 'WATER' in token_name:
+        return 'blue'
+    if 'MOUNTAIN' in token_name:
+        return 'grey'
+    
 # MAIN
 # create_starting_bags_of_tokens()
 # print(WEAKNESS_TOKENS_BAG)
