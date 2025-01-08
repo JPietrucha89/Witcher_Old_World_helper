@@ -36,19 +36,6 @@ def page_config():
 def sort_tokens_alphabetically(e):
     return e.token_id
 
-def get_color_for_token(token_name):
-    if isinstance(token_name, str):
-        pass
-    else:
-        token_name = token_name.token_fullname
-
-    if 'FOREST' in token_name:
-        return 'green'
-    if 'WATER' in token_name:
-        return 'blue'
-    if 'MOUNTAIN' in token_name:
-        return 'grey'
-
 def set_app_state_to_monster_weakness_tokens_placed():
     st.session_state.app_state = 'monster_weakness_tokens_placed'
 
@@ -57,7 +44,7 @@ def check_number_of_tokens_left_in_bag(remove_type, remove_territory_type):
         return sum(1 for i in tokens.WEAKNESS_TOKENS_BAG if i.territory_type == remove_territory_type)
     else:
         return sum(1 for i in tokens.TRAIL_TOKENS_BAG if i.territory_type == remove_territory_type)
-
+    
 @st.dialog("ℹ️ INFO", width= 'large')
 def show_modal_with_info():
     st.info("Welcome to the Witcher Old World - Board Game helper :material/waving_hand:", icon= 'ℹ️')

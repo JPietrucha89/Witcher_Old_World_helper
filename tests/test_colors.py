@@ -1,5 +1,5 @@
 import pytest
-from main import get_color_for_token
+from tokens import get_color_for_token
 
 def test_get_color_for_token():
     assert get_color_for_token('TRAIL_FOREST_') == 'green'
