@@ -86,8 +86,12 @@ def create_starting_bags_of_tokens():
     random.shuffle(WEAKNESS_TOKENS_BAG)
     random.shuffle(TRAIL_TOKENS_BAG)
 
+    REMOVED_TRAIL_TOKENS_BAG = []
+    REMOVED_WEAKNESS_TOKENS_BAG = []
+
     st.toast(":material/token: TOKENS BAGS CREATED :material/token:")
     print("*** TOKENS BAGS CREATED ***")
+    return TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG
 
 def randomly_remove_one_token_from_bag(type, territory_type):
     if 'WEAKNESS' in type:
