@@ -53,7 +53,7 @@ def show_modal_with_info():
         '''
             * ***randomly*** pick tokens from bags
             * return ***selected*** tokens to corresponding bags
-            * draw ***selected*** tokens from bags
+            * intentionally draw ***selected*** tokens from bags
         ''')
     st.write("Structure of the APP:")
     st.markdown(
@@ -205,8 +205,6 @@ if __name__ == "__main__":
             st.write(st.session_state.app_state)
             st.rerun()
 
-    # print(tokens.WEAKNESS_TOKENS_BAG)
-    # print(tokens.TRAIL_TOKENS_BAG)
 
     if st.session_state.app_state == 'monster_weakness_tokens_placed':
         # print("*************************************************")
@@ -223,7 +221,7 @@ if __name__ == "__main__":
         d.metric(label = "\\# of tokens **removed from** :material/wounds_injuries: WEAKNESS_TOKENS_BAG", value = len(st.session_state['REMOVED_WEAKNESS_TOKENS_BAG']))
         
 #? After initial setup it is time to allow users to click buttons
-        #? DONE: randomly_remove_one_token_from_bag in case of quests, new monsters ETC
+    #? DONE: randomly_remove_one_token_from_bag in case of quests, new monsters ETC
         st.subheader('DRAW :orange[RANDOM] TOKEN FROM BAG - :orange[MANUALLY] PLACE THIS TOKEN ON BOARD OR USE IT FOR QUESTS ETC', divider = "green")
 
         col1, col2, col3, col4 = st.columns(4, vertical_alignment = 'center')
@@ -256,23 +254,23 @@ if __name__ == "__main__":
                 st.write(f"Most recently chosen token: :{color}[{icon} {st.session_state.most_recently_chosen_token}]")
 
 
-        #? DONE: return_token_to_bag in case of finished quests, defeated monsters ETC
+    #? DONE: return_token_to_bag in case of finished quests, defeated monsters ETC
         st.subheader("RETURN :orange[SELECTED] TOKEN TO BAG", divider = "green")
         col1, col2, col3 = st.columns(3, vertical_alignment = 'bottom')
 
         with col1:
             return_type = st.radio("Choose token type:", (':material/travel_explore: TRAIL', ':material/wounds_injuries: WEAKNESS'), key = 'return_type_radio')
             if 'WEAKNESS' in return_type:
-                tokens_bag = tokens.REMOVED_WEAKNESS_TOKENS_BAG #TODO: figure out how to sort this list
+                return_tokens_bag = tokens.REMOVED_WEAKNESS_TOKENS_BAG #TODO: figure out how to sort this list
                 icon = ':material/wounds_injuries:'
             else:
-                tokens_bag = tokens.REMOVED_TRAIL_TOKENS_BAG #TODO: figure out how to sort this list
+                return_tokens_bag = tokens.REMOVED_TRAIL_TOKENS_BAG #TODO: figure out how to sort this list
                 icon = ':material/travel_explore:'
 
         with col2:
             token_to_return = st.selectbox(
                 f"Choose {return_type} token to return:",
-                tokens_bag, #.sort(key = sort_tokens_alphabetically),
+                return_tokens_bag, #.sort(key = sort_tokens_alphabetically),
                 index=0
             )
         with col3:
@@ -285,6 +283,35 @@ if __name__ == "__main__":
             tokens.return_token_to_bag(token_to_return)
             color = tokens.get_color_for_token(token_to_return)
             st.toast(f"Token :{color}[{icon} {token_to_return}] has been returned to corresponding bag.", icon=":material/info:")
+            st.rerun()
+
+    # TODO: ADD THIRD SECTION: INTENTIONALLY DRAW SELECTED TOKEN FROM BAG
+        st.subheader("INTENTIONALLY DRAW :orange[SELECTED] TOKEN FROM BAG", divider = "green")
+        
+        col1, col2, col3 = st.columns(3, vertical_alignment = 'bottom')
+        with col1:
+            remove_type = st.radio("Choose token type:", (':material/travel_explore: TRAIL', ':material/wounds_injuries: WEAKNESS'), key = 'remove_selected_type_radio')
+            if 'WEAKNESS' in remove_type:
+                draw_tokens_bag = tokens.WEAKNESS_TOKENS_BAG #TODO: figure out how to sort this list
+                icon = ':material/wounds_injuries:'
+            else:
+                draw_tokens_bag = tokens.TRAIL_TOKENS_BAG #TODO: figure out how to sort this list
+                icon = ':material/travel_explore:'
+
+        with col2:
+            token_to_draw = st.selectbox(
+                f"Choose {remove_type} token to draw:",
+                draw_tokens_bag, #.sort(key = sort_tokens_alphabetically),
+                index=0
+            )
+
+        with col3:
+            disabled = check_number_of_tokens_left_in_bag(remove_type, remove_territory_type) <= 0
+            color = tokens.get_color_for_token(token_to_draw)
+            intentionally_remove_one_token_from_bag = st.button(f'Intentionally draw :{color}[{icon} {token_to_draw}] token from corresponding bag', disabled = disabled)
+        if intentionally_remove_one_token_from_bag:
+            most_recently_chosen_token = tokens.intentionally_remove_one_token_from_bag(remove_type, token_to_draw)
+            # st.session_state['most_recently_chosen_token'] = most_recently_chosen_token
             st.rerun()
 
         # st.button("Run it again")
