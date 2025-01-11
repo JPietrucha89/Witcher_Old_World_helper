@@ -1,6 +1,6 @@
 import streamlit as st
 
-path_to_logo = r"assets\images\\the_witcher_3__wild_hunt_logo.jpg"
+path_to_logo = r"assets\images\the_witcher_3__wild_hunt_logo.jpg"
 
 st.set_page_config(
         page_title="Witcher 3: Wild Hunt - Board Game", 
