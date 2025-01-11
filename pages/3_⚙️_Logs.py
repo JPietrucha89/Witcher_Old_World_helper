@@ -1,14 +1,16 @@
 import streamlit as st
 
+path_to_logo = r"assets\images\\the_witcher_3__wild_hunt_logo.jpg"
+
 st.set_page_config(
         page_title="Witcher 3: Wild Hunt - Board Game", 
         layout="wide", 
         initial_sidebar_state="expanded",
-        page_icon= "the_witcher_3__wild_hunt_logo__original_sticker__by_kejo13_d7tjk8e-fullview.jpg"
+        page_icon= path_to_logo
 )
 
-sidebar_logo = "the_witcher_3__wild_hunt_logo__original_sticker__by_kejo13_d7tjk8e-fullview.jpg"
-main_body_logo = "the_witcher_3__wild_hunt_logo__original_sticker__by_kejo13_d7tjk8e-fullview.jpg"
+sidebar_logo = path_to_logo
+main_body_logo = path_to_logo
 st.logo(sidebar_logo, size="large", icon_image=main_body_logo)
 
 st.title("Logs")
