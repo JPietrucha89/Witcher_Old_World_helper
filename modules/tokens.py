@@ -174,6 +174,8 @@ def return_token_to_bag(token_name: str):
 def get_color_for_token(token_name: str) -> str:
     if isinstance(token_name, str):
         pass
+    elif token_name is None:
+        return
     else:
         token_name = token_name.token_fullname
 
