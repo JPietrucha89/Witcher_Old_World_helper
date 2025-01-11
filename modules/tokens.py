@@ -51,12 +51,23 @@ class Token:
     def __str__(self):  # Used in print() and str() calls
         return f"{self.token_fullname}"
 
-def create_starting_bags_of_tokens():
+def create_starting_bags_of_tokens(add_skellige: bool):
     '''
     Fill 4 starting lists/bags of tokens
     2 types of tokens : WEAKNESS and TRAIL
     Within each type there are 3 territory types: FOREST, WATER, MOUNTAIN
     '''
+
+    global TRAIL_TOKENS_BAG
+    global WEAKNESS_TOKENS_BAG
+    global REMOVED_TRAIL_TOKENS_BAG
+    global REMOVED_WEAKNESS_TOKENS_BAG
+
+    TRAIL_TOKENS_BAG = []
+    WEAKNESS_TOKENS_BAG = []
+    REMOVED_TRAIL_TOKENS_BAG = []
+    REMOVED_WEAKNESS_TOKENS_BAG = []
+
     types = ['TRAIL', 'WEAKNESS']
     territory_types = ['FOREST', 'WATER', 'MOUNTAIN']
     tokens_numbers_dict = {
@@ -68,32 +79,30 @@ def create_starting_bags_of_tokens():
         'WEAKNESS' : ['I', 'II', 'III', 'IV', 'V', 'VI']
     }
 
+    if add_skellige == True:
+        tokens_numbers_dict['TRAIL']['FOREST'].append(19)
+        tokens_numbers_dict['TRAIL']['WATER'].append(20)
+        tokens_numbers_dict['TRAIL']['MOUNTAIN'].append(21)
+
     for token_type,v in tokens_numbers_dict.items():
         if token_type == 'WEAKNESS':
             for territory_type in territory_types:
                 for value in v:
-                    #print(token_type, territory_type, value)
                     WEAKNESS_TOKENS_BAG.append( Token( token_type, territory_type, value) )
             
         elif token_type == 'TRAIL':
             for territory_type,value in tokens_numbers_dict[token_type].items():
-                #print(token_type,v)
-                #print(territory_type,value)
                 for v in value:
-                     #print(token_type, territory_type, v)
                      TRAIL_TOKENS_BAG.append( Token( token_type, territory_type, v) )
     
     random.shuffle(WEAKNESS_TOKENS_BAG)
     random.shuffle(TRAIL_TOKENS_BAG)
 
-    REMOVED_TRAIL_TOKENS_BAG = []
-    REMOVED_WEAKNESS_TOKENS_BAG = []
-
     st.toast(":material/token: TOKENS BAGS CREATED :material/token:")
     print("*** TOKENS BAGS CREATED ***")
     return TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG
 
-def randomly_remove_one_token_from_bag(type, territory_type):
+def randomly_remove_one_token_from_bag(type: str, territory_type: str):
     if 'WEAKNESS' in type:
         list_to_remove_from = WEAKNESS_TOKENS_BAG
         list_to_add_to = REMOVED_WEAKNESS_TOKENS_BAG
@@ -113,7 +122,7 @@ def randomly_remove_one_token_from_bag(type, territory_type):
             most_recently_chosen_token = token.token_fullname
             return most_recently_chosen_token
 
-def intentionally_remove_one_token_from_bag(type, token_fullname):
+def intentionally_remove_one_token_from_bag(type: str, token_fullname: str):
 
     if isinstance(token_fullname, str) and '_' in token_fullname:
         token_type = token_fullname.split('_')[0]
@@ -138,7 +147,7 @@ def intentionally_remove_one_token_from_bag(type, token_fullname):
     
     print(f"Failed to find and remove given token: {token_fullname}")
 
-def return_token_to_bag(token_name):
+def return_token_to_bag(token_name: str):
     
     if isinstance(token_name, str) and '_' in token_name:
         token_type = token_name.split('_')[0]
@@ -162,7 +171,7 @@ def return_token_to_bag(token_name):
     
     print(f"Failed to return given token: {token_name}")
 
-def get_color_for_token(token_name):
+def get_color_for_token(token_name: str) -> str:
     if isinstance(token_name, str):
         pass
     else:
