@@ -324,7 +324,11 @@ if __name__ == "__main__":
         with col3:
             disabled = check_number_of_tokens_left_in_bag(remove_type, remove_territory_type) <= 0
             color = tokens.get_color_for_token(token_to_draw)
-            intentionally_remove_one_token_from_bag = st.button(f'Intentionally draw :{color}[{icon} {token_to_draw}] token from corresponding bag', disabled = disabled)
+            if color is not None:
+                button_label = f'Intentionally draw :{color}[{icon} {token_to_draw}] token from corresponding bag'
+            else:
+                button_label = f'There are no {icon} tokens left in the bag'
+            intentionally_remove_one_token_from_bag = st.button(button_label, disabled = disabled)
         if intentionally_remove_one_token_from_bag:
             most_recently_chosen_token = tokens.intentionally_remove_one_token_from_bag(remove_type, token_to_draw)
             # st.session_state['most_recently_chosen_token'] = most_recently_chosen_token
