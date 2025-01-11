@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
                         col1, col2 = st.columns(2)
                         with col1:
-                            st.image(r'assets\images\Skellige.png')
+                            st.image(r'assets/images/Skellige.png')
                         with col2:
                             add_skellige = st.checkbox("Include Skellige :material/travel_explore: TRAIL TOKENS in the game", key = 'add_skellige_checkbox')
                             skellige_submitted = st.form_submit_button('Confirm choice about Skellige inclusion', help = "Click to confirm your choice about Skellige tokens inclusion")
