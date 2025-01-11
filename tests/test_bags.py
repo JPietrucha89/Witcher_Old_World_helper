@@ -1,20 +1,50 @@
+import sys
+import os
 import pytest
-from tokens import create_starting_bags_of_tokens
-from tokens import randomly_remove_one_token_from_bag
 
-def test_bags_of_tokens():
-    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens()
+# Add the parent directory to the sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from modules.tokens import create_starting_bags_of_tokens
+# from modules.tokens import randomly_remove_one_token_from_bag
+
+def test_bags_of_tokens_with_Skellige():
+# variant with Skellige
+    # TRAIL_TOKENS_BAG = []
+    # WEAKNESS_TOKENS_BAG = []
+    # REMOVED_TRAIL_TOKENS_BAG = []
+    # REMOVED_WEAKNESS_TOKENS_BAG = []
+
+    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens(add_skellige=True)
+    assert len(TRAIL_TOKENS_BAG) == 21
+    assert len(WEAKNESS_TOKENS_BAG) == 18
+    assert len(REMOVED_TRAIL_TOKENS_BAG) == 0
+    assert len(REMOVED_WEAKNESS_TOKENS_BAG) == 0
+
+def test_bags_of_tokens_without_Skellige():
+# variant without Skellige
+    # TRAIL_TOKENS_BAG = []
+    # WEAKNESS_TOKENS_BAG = []
+    # REMOVED_TRAIL_TOKENS_BAG = []
+    # REMOVED_WEAKNESS_TOKENS_BAG = []
+
+    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens(add_skellige=False)
     assert len(TRAIL_TOKENS_BAG) == 18
     assert len(WEAKNESS_TOKENS_BAG) == 18
     assert len(REMOVED_TRAIL_TOKENS_BAG) == 0
     assert len(REMOVED_WEAKNESS_TOKENS_BAG) == 0
 
-    # for territory_type in ['FOREST', 'WATER', 'MOUNTAIN']:
-    #     for y in range(6):
-    #         randomly_remove_one_token_from_bag('TRAIL', territory_type)
-    #         randomly_remove_one_token_from_bag('WEAKNESS', territory_type)
+# def test_removing_tokens_from_bags():
+#     for territory_type in ['FOREST', 'WATER', 'MOUNTAIN']:
+#         for y in range(6):
+#             randomly_remove_one_token_from_bag('TRAIL', territory_type)
+#             randomly_remove_one_token_from_bag('WEAKNESS', territory_type)
 
-    # assert len(TRAIL_TOKENS_BAG) == 0
-    # assert len(WEAKNESS_TOKENS_BAG) == 0
-    # assert len(REMOVED_TRAIL_TOKENS_BAG) == 18
-    # assert len(REMOVED_WEAKNESS_TOKENS_BAG) == 18
+# assert len(TRAIL_TOKENS_BAG) == 0
+# assert len(WEAKNESS_TOKENS_BAG) == 0
+# assert len(REMOVED_TRAIL_TOKENS_BAG) == 18
+# assert len(REMOVED_WEAKNESS_TOKENS_BAG) == 18
+
+if __name__ == '__main__':
+    test_bags_of_tokens_with_Skellige()
+    test_bags_of_tokens_without_Skellige()
