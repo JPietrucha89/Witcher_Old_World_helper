@@ -11,7 +11,7 @@ global add_skellige
 
 def page_config():
     # st.set_option("theme.base", 'dark')
-    path_to_logo = r"assets\images\the_witcher_3__wild_hunt_logo.jpg"
+    path_to_logo = r"assets\images\\the_witcher_3__wild_hunt_logo.jpg"
 
     st.set_page_config(
         page_title = "Witcher: Old World - Board Game",
