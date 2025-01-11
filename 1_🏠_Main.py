@@ -69,11 +69,43 @@ def check_if_all_lists_are_empty() -> bool:
         return True
     else:
         return False
-    
-# DONE add button/modal form with Info about the APP
-# FIXME:somehow working but it breaks between steps 1a and 1b XD
 
-# DONE: ADD THIRD SECTION: INTENTIONALLY DRAW SELECTED TOKEN FROM BAG
+def show_all_tokens_from_list(list_name: str):
+    if list_name == 'WEAKNESS_TOKENS_BAG':
+        list_to_print = tokens.WEAKNESS_TOKENS_BAG
+    elif list_name == 'TRAIL_TOKENS_BAG':
+        list_to_print =  tokens.TRAIL_TOKENS_BAG
+    elif list_name == 'REMOVED_WEAKNESS_TOKENS_BAG':
+        list_to_print = tokens.REMOVED_WEAKNESS_TOKENS_BAG
+    elif list_name == 'REMOVED_TRAIL_TOKENS_BAG':
+        list_to_print = tokens.REMOVED_TRAIL_TOKENS_BAG
+    else:
+        st.write("Wrong list name")
+        return
+    
+    list_to_print.sort(key = sort_tokens_alphabetically)
+    counter = 1
+    col1, col2, col3, col4, col5 = st.columns(5)
+    for token in list_to_print:
+        if counter % 5 == 1:
+            col_name = col1
+        elif counter % 5 == 2:
+            col_name = col2
+        elif counter % 5 == 3:
+            col_name = col3
+        elif counter % 5 == 4:
+            col_name = col4
+        else:
+            col_name = col5
+
+        with col_name:
+            st.image(token.token_img_path, caption = token.token_fullname)
+            counter += 1
+
+# DONE add button/modal form with Info about the APP
+# FIXME somehow working but it breaks between steps 1a and 1b XD
+
+# DONE ADD THIRD SECTION: INTENTIONALLY DRAW SELECTED TOKEN FROM BAG
 if __name__ == "__main__":
     page_config()
     print("*** ENTIRELY NEW RUN - STARTING FROM TOP OF THE 1_Main SCRIPT ***")
@@ -334,7 +366,27 @@ if __name__ == "__main__":
             # st.session_state['most_recently_chosen_token'] = most_recently_chosen_token
             st.rerun()
 
+
+        # DONE PRINT ALL TOKENS AS IMAGES
+        st.subheader("SHOW ALL TOKENS IN BAGS", divider = "green")
+        tab1, tab2, tab3, tab4 = st.tabs(
+            [":material/travel_explore: TRAIL_TOKENS left in bag", ":material/wounds_injuries: WEAKNESS_TOKENS left in bag", "removed :material/travel_explore: TRAIL TOKENS", "removed :material/wounds_injuries: WEAKNESS TOKENS"]
+            )
+        with tab1:
+            with st.expander("Show all :material/travel_explore: TRAIL TOKENS in bag:"):
+                show_all_tokens_from_list('TRAIL_TOKENS_BAG')
+        with tab2:
+            with st.expander("Show all :material/wounds_injuries: WEAKNESS TOKENS in bag:"):
+                show_all_tokens_from_list('WEAKNESS_TOKENS_BAG')
+        with tab3:
+            with st.expander("Show all removed :material/travel_explore: TRAIL TOKENS:"):
+                show_all_tokens_from_list('REMOVED_TRAIL_TOKENS_BAG')
+        with tab4:
+            with st.expander("Show all removed :material/wounds_injuries: WEAKNESS TOKENS:"):
+                show_all_tokens_from_list('REMOVED_WEAKNESS_TOKENS_BAG')
+
         # st.button("Run it again")
+        # st.button(":material/refresh: Run it again", on_click = st.cache_data.clear() )
         print("*** END OF RUN ***")
         quit()
 

@@ -36,6 +36,10 @@ class Token:
             self.is_being_used = False
             self.token_id = token_id 
             self.token_fullname = type + '_' + territory_type + '_' + str(token_id)
+            if 'WEAKNESS' in type:
+                self.token_img_path = r'assets/images/weaknessTokens/' + type + '_' + territory_type + '_' + str(token_id) + '.jpg'
+            else:
+                self.token_img_path = r'assets/images/trailTokens/' + type + '_' + territory_type + '_' + str(token_id) + '.png'
 
     def print_definition(self):
         print(f"Token type: {self.type}")

@@ -1,4 +1,5 @@
 import streamlit as st
+import modules.tokens as tokens
 
 path_to_logo = r"assets/images/the_witcher_3__wild_hunt_logo.jpg"
 
@@ -20,3 +21,7 @@ if 'logs_list' in st.session_state:
         st.write(st.session_state.logs_list)
 else:
         st.write(":red[No logs yet.]")
+
+st.session_state.app_state
+st.session_state.starting_bags_created
+st.session_state.initial_weakness_tokens_removed
