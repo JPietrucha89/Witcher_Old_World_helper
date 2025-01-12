@@ -13,7 +13,7 @@ sidebar_logo = path_to_logo
 main_body_logo = path_to_logo
 st.logo(sidebar_logo, size="large", icon_image=main_body_logo)
 
-# st.write(st.session_state)
+
 
 st.title("DEBUG")
 st.header("This is a debug page to check :orange[session_state] contents.")
@@ -49,5 +49,3 @@ if 'TRAIL_TOKENS_BAG' in st.session_state:
         st.write(st.session_state.TRAIL_TOKENS_BAG)
 else:
         st.write(":red[No TRAIL_TOKENS_BAG yet.]")
-
-

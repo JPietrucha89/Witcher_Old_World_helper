@@ -1,12 +1,6 @@
 import random
 import streamlit as st
 
-# global TRAIL_TOKENS_BAG
-# global WEAKNESS_TOKENS_BAG
-# global REMOVED_TRAIL_TOKENS_BAG
-# global REMOVED_WEAKNESS_TOKENS_BAG
-# global most_recently_chosen_token
-
 '''Create all global lists and variables'''
 TRAIL_TOKENS_BAG = []
 WEAKNESS_TOKENS_BAG = []
@@ -189,8 +183,3 @@ def get_color_for_token(token_name: str) -> str:
         return 'blue'
     if 'MOUNTAIN' in token_name:
         return 'grey'
-    
-# MAIN
-# create_starting_bags_of_tokens()
-# print(WEAKNESS_TOKENS_BAG)
-# print(TRAIL_TOKENS_BAG)
