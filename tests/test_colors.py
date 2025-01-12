@@ -1,4 +1,3 @@
-import pytest
 from modules.tokens import get_color_for_token
 
 def test_get_color_for_token():

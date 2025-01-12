@@ -1,10 +1,6 @@
 import modules.tokens as tokens
 import streamlit as st
 
-# global TRAIL_TOKENS_BAG
-# global WEAKNESS_TOKENS_BAG
-# global REMOVED_TRAIL_TOKENS_BAG
-# global REMOVED_WEAKNESS_TOKENS_BAG
 global most_recently_chosen_token
 global session_state
 global add_skellige
