@@ -325,7 +325,7 @@ if __name__ == "__main__":
             st.rerun()
 
         with col4:
-            if st.session_state.most_recently_chosen_token == 'None':
+            if st.session_state.most_recently_chosen_token == 'None' or st.session_state.most_recently_chosen_token is None:
                 st.write("No token was removed yet")
             else:
                 color = tokens.get_color_for_token(st.session_state.most_recently_chosen_token)
