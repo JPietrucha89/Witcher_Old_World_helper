@@ -76,17 +76,17 @@ def create_starting_bags_of_tokens(add_skellige: bool):
     territory_types = ['FOREST', 'WATER', 'MOUNTAIN']
     tokens_numbers_dict = {
         'TRAIL' : {
-              'FOREST':     [6, 7, 8, 10, 16, 17],  #19 Skellige
+              'FOREST':     [6, 7, 8, 10, 16, 17],  #21 Skellige
               'WATER':      [1, 4, 5, 12, 14, 15],  #20 Skellige
-              'MOUNTAIN':   [2, 3, 9, 11, 13, 18]   #21 Skellige
+              'MOUNTAIN':   [2, 3, 9, 11, 13, 18]   #19 Skellige
         },
         'WEAKNESS' : ['I', 'II', 'III', 'IV', 'V', 'VI']
     }
 
     if add_skellige == True:
-        tokens_numbers_dict['TRAIL']['FOREST'].append(19)
+        tokens_numbers_dict['TRAIL']['FOREST'].append(21)
         tokens_numbers_dict['TRAIL']['WATER'].append(20)
-        tokens_numbers_dict['TRAIL']['MOUNTAIN'].append(21)
+        tokens_numbers_dict['TRAIL']['MOUNTAIN'].append(19)
 
     for token_type,v in tokens_numbers_dict.items():
         if token_type == 'WEAKNESS':
