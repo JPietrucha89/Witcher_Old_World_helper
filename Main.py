@@ -130,7 +130,7 @@ def clear_all_tokens_lists():
     tokens.REMOVED_TRAIL_TOKENS_BAG = []
     tokens.REMOVED_WEAKNESS_TOKENS_BAG = []
 
-def nuclear_reset():
+def nuclear_reset() -> None:
     clear_all_tokens_lists()
     st.cache_data.clear()
     st.cache_resource.clear()
@@ -138,7 +138,16 @@ def nuclear_reset():
     for key in st.session_state.keys():
         del st.session_state[key]
 
-def initial_setup():
+def initial_setup() -> None:
+    if 'app_state' not in st.session_state:
+        st.cache_data.clear()
+        st.cache_resource.clear()
+        st.session_state.app_state = 'initial_setup_started'  
+        st.session_state.counter = 0
+        show_modal_with_info()
+
+    if 'most_recently_chosen_token' not in st.session_state:
+        st.session_state['most_recently_chosen_token'] = 'None'
     pass
 
 def decide_if_Skellige_should_be_included_and_create_bags():
@@ -158,16 +167,6 @@ if __name__ == "__main__":
 
 #? THIS IS INITIAL SETUP AND NEEDS TO BE DONE ONLY ONCE
     initial_setup()
-
-    if 'app_state' not in st.session_state:
-        st.cache_data.clear()
-        st.cache_resource.clear()
-        st.session_state.app_state = 'initial_setup_started'  
-        st.session_state.counter = 0
-        show_modal_with_info()
-
-    if 'most_recently_chosen_token' not in st.session_state:
-        st.session_state['most_recently_chosen_token'] = 'None'
 
     if (st.session_state.app_state == 'initial_setup_started' or st.session_state.counter == 0) and st.session_state.app_state != 'initial_weakness_tokens_removed' and st.session_state.app_state != 'monster_weakness_tokens_placed':
         st.header("1. INITIAL SETUP FOR MONSTERS (:material/travel_explore: TRAIL AND :material/wounds_injuries: WEAKNESS TOKENS)")
