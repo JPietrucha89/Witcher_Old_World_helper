@@ -5,7 +5,7 @@ global most_recently_chosen_token
 global session_state
 global add_skellige
 
-def page_config():
+def page_config() -> None:
     # st.set_option("theme.base", 'dark')
     path_to_logo = r"assets/images/the_witcher_3__wild_hunt_logo.jpg"
     st.set_page_config(
@@ -29,10 +29,10 @@ def page_config():
 
         st.caption('''version: 0.1''')
 
-def sort_tokens_alphabetically(e):
+def sort_tokens_alphabetically(e) -> str:
     return e.token_id
 
-def set_app_state_to_monster_weakness_tokens_placed():
+def set_app_state_to_monster_weakness_tokens_placed() -> None:
     st.session_state.app_state = 'monster_weakness_tokens_placed'
 
 def check_number_of_tokens_left_in_bag(remove_type, remove_territory_type = None) -> int:
@@ -49,7 +49,7 @@ def check_number_of_tokens_left_in_bag(remove_type, remove_territory_type = None
             return sum(1 for i in tokens.TRAIL_TOKENS_BAG if i.territory_type == remove_territory_type)
     
 @st.dialog("ℹ️ INFO", width= 'large')
-def show_modal_with_info():
+def show_modal_with_info() -> None:
     st.info("Welcome to the Witcher Old World - Board Game helper :material/waving_hand:", icon= 'ℹ️')
     st.write("It should alleviate some of the pain connected to dealing with tokens by allowing you to:")  
     st.markdown(
@@ -92,7 +92,7 @@ def print_tokens_as_images(TRAIL_TOKENS_BAG_list_name: str, WEAKNESS_TOKENS_BAG_
             show_all_tokens_from_list(REMOVED_WEAKNESS_TOKENS_BAG_list_name)
     pass
 
-def show_all_tokens_from_list(list_name: str):
+def show_all_tokens_from_list(list_name: str) -> None:
     if list_name == 'WEAKNESS_TOKENS_BAG':
         list_to_print = tokens.WEAKNESS_TOKENS_BAG
     elif list_name == 'TRAIL_TOKENS_BAG':
@@ -433,7 +433,7 @@ if __name__ == "__main__":
     if st.session_state.app_state == 'monster_weakness_tokens_placed':
         show_metrics()
 
-#? After initial setup it is time to allow users to click buttons
+#? AFTER INITIAL SETUP IT IS TIME TO ALLOW USERS TO CLICK BUTTONS IN 3 SECTIONS
     # DONE: ADD FIRST SECTION: randomly_remove_one_token_from_bag in case of quests, new monsters ETC
         render_and_print_first_section_randomly_remove_one_token_from_bag()
 
