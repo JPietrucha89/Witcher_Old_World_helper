@@ -335,9 +335,68 @@ def render_and_print_first_section_randomly_remove_one_token_from_bag() -> None:
     pass
 
 def render_and_print_second_section_intentionally_return_one_token_to_bag() -> None:
+    st.subheader("RETURN :orange[SELECTED] TOKEN TO BAG", divider = "green")
+    col1, col2, col3 = st.columns(3, vertical_alignment = 'bottom')
+
+    with col1:
+        return_type = st.radio("Choose token type:", (':material/travel_explore: TRAIL', ':material/wounds_injuries: WEAKNESS'), key = 'return_type_radio')
+        if 'WEAKNESS' in return_type:
+            return_tokens_bag = tokens.REMOVED_WEAKNESS_TOKENS_BAG #TODO: figure out how to sort this list
+            icon = ':material/wounds_injuries:'
+        else:
+            return_tokens_bag = tokens.REMOVED_TRAIL_TOKENS_BAG #TODO: figure out how to sort this list
+            icon = ':material/travel_explore:'
+
+    with col2:
+        token_to_return = st.selectbox(
+            f"Choose {return_type} token to return:",
+            return_tokens_bag, #.sort(key = sort_tokens_alphabetically),
+            index=0
+        )
+    with col3:
+        if token_to_return is None:
+            return_token_to_bag = st.button(f'Return selected {return_type} token to corresponding bag', disabled = True)
+        else:
+            return_token_to_bag = st.button(f'Return selected {return_type} token to corresponding bag', disabled = False)
+
+    if return_token_to_bag:
+        tokens.return_token_to_bag(token_to_return)
+        color = tokens.get_color_for_token(token_to_return)
+        st.toast(f"Token :{color}[{icon} {token_to_return}] has been returned to corresponding bag.", icon=":material/info:")
+        st.rerun()
     pass
 
 def render_and_print_third_section_intentionally_draw_one_token_from_bag() -> None:
+    st.subheader("INTENTIONALLY DRAW :orange[SELECTED] TOKEN FROM BAG", divider = "green")
+        
+    col1, col2, col3 = st.columns(3, vertical_alignment = 'bottom')
+    with col1:
+        remove_intentionally_type = st.radio("Choose token type:", (':material/travel_explore: TRAIL', ':material/wounds_injuries: WEAKNESS'), key = 'remove_selected_type_radio')
+        if 'WEAKNESS' in remove_intentionally_type:
+            draw_tokens_bag = tokens.WEAKNESS_TOKENS_BAG #TODO: figure out how to sort this list
+            icon = ':material/wounds_injuries:'
+        else:
+            draw_tokens_bag = tokens.TRAIL_TOKENS_BAG #TODO: figure out how to sort this list
+            icon = ':material/travel_explore:'
+
+    with col2:
+        token_to_draw = st.selectbox(
+            f"Choose {remove_intentionally_type} token to draw:",
+            draw_tokens_bag, #.sort(key = sort_tokens_alphabetically),
+            index=0
+        )
+
+    with col3:
+        disabled = check_number_of_tokens_left_in_bag(remove_intentionally_type) <= 0
+        color = tokens.get_color_for_token(token_to_draw)
+        if color is not None:
+            button_label = f'Intentionally draw :{color}[{icon} {token_to_draw}] token from corresponding bag'
+        else:
+            button_label = f'There are no {icon} tokens left in the bag'
+        intentionally_remove_one_token_from_bag = st.button(button_label, disabled = disabled)
+    if intentionally_remove_one_token_from_bag:
+        most_recently_chosen_token = tokens.intentionally_remove_one_token_from_bag(remove_intentionally_type, token_to_draw)
+        st.rerun()
     pass
 
 
@@ -381,72 +440,10 @@ if __name__ == "__main__":
     # DONE: ADD SECOND SECTION: return_token_to_bag in case of finished quests, defeated monsters ETC
         render_and_print_second_section_intentionally_return_one_token_to_bag()
 
-        st.subheader("RETURN :orange[SELECTED] TOKEN TO BAG", divider = "green")
-        col1, col2, col3 = st.columns(3, vertical_alignment = 'bottom')
-
-        with col1:
-            return_type = st.radio("Choose token type:", (':material/travel_explore: TRAIL', ':material/wounds_injuries: WEAKNESS'), key = 'return_type_radio')
-            if 'WEAKNESS' in return_type:
-                return_tokens_bag = tokens.REMOVED_WEAKNESS_TOKENS_BAG #TODO: figure out how to sort this list
-                icon = ':material/wounds_injuries:'
-            else:
-                return_tokens_bag = tokens.REMOVED_TRAIL_TOKENS_BAG #TODO: figure out how to sort this list
-                icon = ':material/travel_explore:'
-
-        with col2:
-            token_to_return = st.selectbox(
-                f"Choose {return_type} token to return:",
-                return_tokens_bag, #.sort(key = sort_tokens_alphabetically),
-                index=0
-            )
-        with col3:
-            if token_to_return is None:
-                return_token_to_bag = st.button(f'Return selected {return_type} token to corresponding bag', disabled = True)
-            else:
-                return_token_to_bag = st.button(f'Return selected {return_type} token to corresponding bag', disabled = False)
-
-        if return_token_to_bag:
-            tokens.return_token_to_bag(token_to_return)
-            color = tokens.get_color_for_token(token_to_return)
-            st.toast(f"Token :{color}[{icon} {token_to_return}] has been returned to corresponding bag.", icon=":material/info:")
-            st.rerun()
-
     # DONE: ADD THIRD SECTION: INTENTIONALLY DRAW SELECTED TOKEN FROM BAG
         render_and_print_third_section_intentionally_draw_one_token_from_bag()
 
-        st.subheader("INTENTIONALLY DRAW :orange[SELECTED] TOKEN FROM BAG", divider = "green")
-        
-        col1, col2, col3 = st.columns(3, vertical_alignment = 'bottom')
-        with col1:
-            remove_intentionally_type = st.radio("Choose token type:", (':material/travel_explore: TRAIL', ':material/wounds_injuries: WEAKNESS'), key = 'remove_selected_type_radio')
-            if 'WEAKNESS' in remove_intentionally_type:
-                draw_tokens_bag = tokens.WEAKNESS_TOKENS_BAG #TODO: figure out how to sort this list
-                icon = ':material/wounds_injuries:'
-            else:
-                draw_tokens_bag = tokens.TRAIL_TOKENS_BAG #TODO: figure out how to sort this list
-                icon = ':material/travel_explore:'
-
-        with col2:
-            token_to_draw = st.selectbox(
-                f"Choose {remove_intentionally_type} token to draw:",
-                draw_tokens_bag, #.sort(key = sort_tokens_alphabetically),
-                index=0
-            )
-
-        with col3:
-            disabled = check_number_of_tokens_left_in_bag(remove_intentionally_type) <= 0
-            color = tokens.get_color_for_token(token_to_draw)
-            if color is not None:
-                button_label = f'Intentionally draw :{color}[{icon} {token_to_draw}] token from corresponding bag'
-            else:
-                button_label = f'There are no {icon} tokens left in the bag'
-            intentionally_remove_one_token_from_bag = st.button(button_label, disabled = disabled)
-        if intentionally_remove_one_token_from_bag:
-            most_recently_chosen_token = tokens.intentionally_remove_one_token_from_bag(remove_intentionally_type, token_to_draw)
-            st.rerun()
-
-
-        # DONE PRINT ALL TOKENS AS IMAGES
+    # DONE PRINT ALL TOKENS AS IMAGES
         print_tokens_as_images('TRAIL_TOKENS_BAG', 'WEAKNESS_TOKENS_BAG', 'REMOVED_TRAIL_TOKENS_BAG', 'REMOVED_WEAKNESS_TOKENS_BAG')
 
         print("*** END OF RUN ***")
