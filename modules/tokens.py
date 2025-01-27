@@ -24,7 +24,7 @@ class Token:
         WATER I II III IV V VI
         MOUNTAIN I II III IV V VI
     '''
-    def __init__(self, type, territory_type, token_id, is_being_used = False, token_fullname = '' ):
+    def __init__(self, type: str, territory_type: str, token_id: str, is_being_used = False, token_fullname = '' ) :
             self.type = type
             self.territory_type = territory_type
             self.is_being_used = False
@@ -35,7 +35,7 @@ class Token:
             else:
                 self.token_img_path = r'assets/images/trailTokens/' + type + '_' + territory_type + '_' + str(token_id) + '.png'
 
-    def print_definition(self):
+    def print_definition(self) -> str:
         print(f"Token type: {self.type}")
         print(f"Territory type: {self.territory_type}")
         print(f"token_id: {self.token_id}")
@@ -43,13 +43,13 @@ class Token:
         print(f"Token full name: {self.token_fullname}")
         #print(self.type, self.territory_type, self.token_id, self.is_being_used, self.token_name)
 
-    def __repr__(self):  # Used in lists, debugging, and when you type the object name in the console
+    def __repr__(self) -> str:  # Used in lists, debugging, and when you type the object name in the console
         return f"TokenClass(type='{self.type}', territory_type={self.territory_type}, token_id={self.token_id}, is_being_used={self.is_being_used}, token_fullname={self.token_fullname})"
 
-    def __str__(self):  # Used in print() and str() calls
+    def __str__(self) -> str:  # Used in print() and str() calls
         return f"{self.token_fullname}"
 
-def create_starting_bags_of_tokens(add_skellige: bool):
+def create_starting_bags_of_tokens(add_skellige_bool: bool) -> list:
     '''
     Fill 4 starting lists/bags of tokens
     2 types of tokens : WEAKNESS and TRAIL
@@ -77,7 +77,7 @@ def create_starting_bags_of_tokens(add_skellige: bool):
         'WEAKNESS' : ['I', 'II', 'III', 'IV', 'V', 'VI']
     }
 
-    if add_skellige == True:
+    if add_skellige_bool == True:
         tokens_numbers_dict['TRAIL']['FOREST'].append(21)
         tokens_numbers_dict['TRAIL']['WATER'].append(20)
         tokens_numbers_dict['TRAIL']['MOUNTAIN'].append(19)
@@ -100,7 +100,7 @@ def create_starting_bags_of_tokens(add_skellige: bool):
     print("*** TOKENS BAGS CREATED ***")
     return TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG
 
-def randomly_remove_one_token_from_bag(type: str, territory_type: str):
+def randomly_remove_one_token_from_bag(type: str, territory_type: str) -> str:
     if 'WEAKNESS' in type:
         list_to_remove_from = WEAKNESS_TOKENS_BAG
         list_to_add_to = REMOVED_WEAKNESS_TOKENS_BAG
@@ -120,7 +120,7 @@ def randomly_remove_one_token_from_bag(type: str, territory_type: str):
             most_recently_chosen_token = token.token_fullname
             return most_recently_chosen_token
 
-def intentionally_remove_one_token_from_bag(type: str, token_fullname: str):
+def intentionally_remove_one_token_from_bag(type: str, token_fullname: str) -> str:
 
     if isinstance(token_fullname, str) and '_' in token_fullname:
         token_type = token_fullname.split('_')[0]
@@ -145,7 +145,7 @@ def intentionally_remove_one_token_from_bag(type: str, token_fullname: str):
     
     print(f"Failed to find and remove given token: {token_fullname}")
 
-def return_token_to_bag(token_name: str):
+def return_token_to_bag(token_name: str) -> None:
     
     if isinstance(token_name, str) and '_' in token_name:
         token_type = token_name.split('_')[0]
