@@ -303,6 +303,35 @@ def show_metrics() -> None:
     pass
 
 def render_and_print_first_section_randomly_remove_one_token_from_bag() -> None:
+    st.subheader('DRAW :orange[RANDOM] TOKEN FROM BAG - :orange[MANUALLY] PLACE THIS TOKEN ON BOARD OR USE IT FOR QUESTS ETC', divider = "green")
+
+    col1, col2, col3, col4 = st.columns(4, vertical_alignment = 'center')
+    with col1:
+        remove_randomly_type = st.radio("Choose token type:", (':material/travel_explore: TRAIL', ':material/wounds_injuries: WEAKNESS'), key = 'remove_type_radio')
+
+    with col2:
+        remove_randomly_territory_type = st.radio("Choose territory type:", ('FOREST', 'WATER', 'MOUNTAIN'))
+    
+    with col3:
+        # DONE: disable this button if number of remove_type x remove_territory_type tokens in bag is 0
+        remove_randomly_disabled = check_number_of_tokens_left_in_bag(remove_randomly_type, remove_randomly_territory_type) <= 0
+        color = tokens.get_color_for_token(remove_randomly_territory_type)
+        randomly_remove_one_token_from_bag = st.button(f'Randomly draw :{color}[{remove_randomly_type} {remove_randomly_territory_type}] token from corresponding bag', disabled = remove_randomly_disabled)
+    if randomly_remove_one_token_from_bag:
+        most_recently_chosen_token = tokens.randomly_remove_one_token_from_bag(remove_randomly_type, remove_randomly_territory_type)
+        st.session_state['most_recently_chosen_token'] = most_recently_chosen_token
+        st.rerun()
+
+    with col4:
+        if st.session_state.most_recently_chosen_token == 'None' or st.session_state.most_recently_chosen_token is None:
+            st.write("No token was removed yet")
+        else:
+            color = tokens.get_color_for_token(st.session_state.most_recently_chosen_token)
+            if 'WEAKNESS' in st.session_state.most_recently_chosen_token:
+                icon = ':material/wounds_injuries:'
+            else:
+                icon = ':material/travel_explore:'
+            st.write(f"Most recently chosen token: :{color}[{icon} {st.session_state.most_recently_chosen_token}]")
     pass
 
 def render_and_print_second_section_intentionally_return_one_token_to_bag() -> None:
@@ -348,38 +377,10 @@ if __name__ == "__main__":
 #? After initial setup it is time to allow users to click buttons
     # DONE: ADD FIRST SECTION: randomly_remove_one_token_from_bag in case of quests, new monsters ETC
         render_and_print_first_section_randomly_remove_one_token_from_bag()
-        st.subheader('DRAW :orange[RANDOM] TOKEN FROM BAG - :orange[MANUALLY] PLACE THIS TOKEN ON BOARD OR USE IT FOR QUESTS ETC', divider = "green")
-
-        col1, col2, col3, col4 = st.columns(4, vertical_alignment = 'center')
-        with col1:
-            remove_randomly_type = st.radio("Choose token type:", (':material/travel_explore: TRAIL', ':material/wounds_injuries: WEAKNESS'), key = 'remove_type_radio')
-
-        with col2:
-            remove_randomly_territory_type = st.radio("Choose territory type:", ('FOREST', 'WATER', 'MOUNTAIN'))
-        
-        with col3:
-            # DONE: disable this button if number of remove_type x remove_territory_type tokens in bag is 0
-            remove_randomly_disabled = check_number_of_tokens_left_in_bag(remove_randomly_type, remove_randomly_territory_type) <= 0
-            color = tokens.get_color_for_token(remove_randomly_territory_type)
-            randomly_remove_one_token_from_bag = st.button(f'Randomly draw :{color}[{remove_randomly_type} {remove_randomly_territory_type}] token from corresponding bag', disabled = remove_randomly_disabled)
-        if randomly_remove_one_token_from_bag:
-            most_recently_chosen_token = tokens.randomly_remove_one_token_from_bag(remove_randomly_type, remove_randomly_territory_type)
-            st.session_state['most_recently_chosen_token'] = most_recently_chosen_token
-            st.rerun()
-
-        with col4:
-            if st.session_state.most_recently_chosen_token == 'None' or st.session_state.most_recently_chosen_token is None:
-                st.write("No token was removed yet")
-            else:
-                color = tokens.get_color_for_token(st.session_state.most_recently_chosen_token)
-                if 'WEAKNESS' in st.session_state.most_recently_chosen_token:
-                    icon = ':material/wounds_injuries:'
-                else:
-                    icon = ':material/travel_explore:'
-                st.write(f"Most recently chosen token: :{color}[{icon} {st.session_state.most_recently_chosen_token}]")
-
 
     # DONE: ADD SECOND SECTION: return_token_to_bag in case of finished quests, defeated monsters ETC
+        render_and_print_second_section_intentionally_return_one_token_to_bag()
+
         st.subheader("RETURN :orange[SELECTED] TOKEN TO BAG", divider = "green")
         col1, col2, col3 = st.columns(3, vertical_alignment = 'bottom')
 
@@ -411,6 +412,8 @@ if __name__ == "__main__":
             st.rerun()
 
     # DONE: ADD THIRD SECTION: INTENTIONALLY DRAW SELECTED TOKEN FROM BAG
+        render_and_print_third_section_intentionally_draw_one_token_from_bag()
+
         st.subheader("INTENTIONALLY DRAW :orange[SELECTED] TOKEN FROM BAG", divider = "green")
         
         col1, col2, col3 = st.columns(3, vertical_alignment = 'bottom')
