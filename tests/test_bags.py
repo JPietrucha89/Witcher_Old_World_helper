@@ -15,7 +15,7 @@ def test_bags_of_tokens_with_Skellige():
     # REMOVED_TRAIL_TOKENS_BAG = []
     # REMOVED_WEAKNESS_TOKENS_BAG = []
 
-    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens(add_skellige=True)
+    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens(add_skellige_bool=True)
     assert len(TRAIL_TOKENS_BAG) == 21
     assert len(WEAKNESS_TOKENS_BAG) == 18
     assert len(REMOVED_TRAIL_TOKENS_BAG) == 0
@@ -28,7 +28,7 @@ def test_bags_of_tokens_without_Skellige():
     # REMOVED_TRAIL_TOKENS_BAG = []
     # REMOVED_WEAKNESS_TOKENS_BAG = []
 
-    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens(add_skellige=False)
+    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens(add_skellige_bool=False)
     assert len(TRAIL_TOKENS_BAG) == 18
     assert len(WEAKNESS_TOKENS_BAG) == 18
     assert len(REMOVED_TRAIL_TOKENS_BAG) == 0
@@ -36,7 +36,7 @@ def test_bags_of_tokens_without_Skellige():
 
 def test_removing_tokens_from_bags_without_Skellige():
 
-    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens(add_skellige=False)
+    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens(add_skellige_bool=False)
 
     for territory_type in ['FOREST', 'WATER', 'MOUNTAIN']:
         for y in range(6):
@@ -50,7 +50,7 @@ def test_removing_tokens_from_bags_without_Skellige():
 
 def test_removing_tokens_from_bags_with_Skellige():
 
-    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens(add_skellige=True)
+    TRAIL_TOKENS_BAG, WEAKNESS_TOKENS_BAG, REMOVED_TRAIL_TOKENS_BAG, REMOVED_WEAKNESS_TOKENS_BAG = create_starting_bags_of_tokens(add_skellige_bool=True)
 
     for territory_type in ['FOREST', 'WATER', 'MOUNTAIN']:
         for y in range(6):
@@ -63,7 +63,7 @@ def test_removing_tokens_from_bags_with_Skellige():
     assert len(REMOVED_WEAKNESS_TOKENS_BAG) == 18
 
 def test_list_emptiness():
-    create_starting_bags_of_tokens(add_skellige=True)
+    create_starting_bags_of_tokens(add_skellige_bool=True)
     assert Main.check_if_all_lists_are_empty() == False
     Main.clear_all_tokens_lists()
     assert Main.check_if_all_lists_are_empty() == True
